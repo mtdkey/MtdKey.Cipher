@@ -8,27 +8,29 @@
     <center>
         <h1>MTD Key Cipher Example</h1>
     </center>
+    <hr />
     <form method="post">
-    <div class="row">
-        <div class="col-md-12 col-lg-6">
-            <label>ID</label>
-            <input class="form-control m-3 text-uppercase" asp-for="@Model.TokenModel.Id" />
-            <label>Created</label>
-            <input class="form-control m-3" asp-for="@Model.TokenModel.Created" />
-            <label>Text Data</label>
-            <input class="form-control m-3" asp-for="@Model.TokenModel.Data" />
+        <div class="row d-flex align-items-center">
+            <div class="col-md-12 col-lg-6 pt-2">
+                <div class="p-3" style="border: 1px solid #ccc">
+                    <label>ID</label>
+                    <input required class="form-control text-uppercase" asp-for="@Model.TokenModel.Id" />
+                    <label>Created</label>
+                    <input required class="form-control" type="date" asp-for="@Model.TokenModel.Created" />
+                    <label>Text Data</label>
+                    <input required class="form-control" asp-for="@Model.TokenModel.Data" />
+                </div>
+                <div class="pt-3"> 
+                    <button class="btn btn-secondary w-100 shadow text-uppercase">Create token</button>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-6">
+                <label>Encrypted Token</label>
+                <textarea class="form-control m-1" rows="4" disabled>@Model.EncryptedData</textarea>
+                <label>Decrypted Token</label>
+                <textarea class="form-control m-1" rows="4" disabled>@Model.DecryptedData</textarea>
+            </div>
         </div>
-        <div class="col-md-12 col-lg-6">
-                <label>Encripted Token</label>
-            <textarea class="form-control m-1" rows="4">@Model.EncriptedData</textarea>
-                <label>Decripted Token</label>
-                <textarea class="form-control m-1" rows="4">@Model.DecriptedData</textarea>
-        </div>
-    </div>
-    <div class="p-3">
-             <button class="btn btn-dark w-100">START</button>
-    </div>
-
     </form>
 </div>
 

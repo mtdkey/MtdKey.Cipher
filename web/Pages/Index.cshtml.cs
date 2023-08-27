@@ -16,9 +16,10 @@ namespace MtdKey.Cipher.WebApp.Pages
         [BindProperty]
         public TokenModel TokenModel { get; set; } = new();
         [TempData]
-        public string EncriptedData { get; set; } = string.Empty;
+        public string EncryptedData { get; set; } = string.Empty;
         [TempData]
-        public string DecriptedData { get; set; } = string.Empty;
+        public string DecryptedData { get; set; } = string.Empty;
+
         public void OnGet(string Id, string dateTime, string textData = "Test Word")
         {
             if (Guid.TryParse(Id, out Guid guid))
@@ -34,9 +35,13 @@ namespace MtdKey.Cipher.WebApp.Pages
         public IActionResult OnPost()
         {
 
-            EncriptedData = aesManager.EncryptModel(TokenModel);
-            var decriptedModel = aesManager.DecryptModel(EncriptedData);
-            DecriptedData = $" ID: {decriptedModel.Id.ToString().ToUpper()} \n Created: {decriptedModel.Created} \n Data: {decriptedModel.Data}";
+            EncryptedData = aesManager.EncryptModel(TokenModel);
+            var decryptedModel = aesManager.DecryptModel(EncryptedData);
+            
+            DecryptedData = $" ID: {decryptedModel.Id.ToString().ToUpper()} " +
+                $"\n Created: {decryptedModel.Created} " +
+                $"\n Data: {decryptedModel.Data}";
+
             return RedirectToPage("/Index", new { 
                 TokenModel.Id,
                 dateTime = TokenModel.Created,
