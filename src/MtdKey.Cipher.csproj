@@ -13,9 +13,11 @@ Allows messages to be exchanged kind of class objects.</Description>
     <Title>MTD Key Cipher</Title>
     <PackageIcon>MTDKey-128.png</PackageIcon>
     <PackageTags>mtdkey, dotnet, aes, encryptor, Rijndael</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Oleg Bruev</Authors>
     <Company>MTD Key</Company>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <FileVersion>1.0.2</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
