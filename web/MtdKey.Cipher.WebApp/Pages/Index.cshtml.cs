@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MtdKey.Cipher.WebApp.Pages
 {
+
     public class IndexModel : PageModel
     {
         private readonly IAesManager aesManager;

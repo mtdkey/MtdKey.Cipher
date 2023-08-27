@@ -15,14 +15,19 @@ namespace MtdKey.Cipher.Tests
         [Fact]
         public void GenerateSecretKeyTest()
         {
-           var secretKey = AesCore.GenerateSecretKey();
-           outputHelper.WriteLine(secretKey);
+            var secretKey = AesCore.GenerateSecretKey();
+            outputHelper.WriteLine(secretKey);
         }
 
         [Fact]
         public void EncryptAndDecryptModelTest()
         {
-            var tokenModel = new TestTokenModel();
+            var tokenModel = new TestTokenModel()
+            {
+                UserName = "John Doe",
+                Password = "password",
+                Items = new() { "first", "second" }
+            };
             var secretKey = AesCore.GenerateSecretKey();
 
             using Aes aes = Aes.Create();
