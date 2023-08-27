@@ -48,7 +48,7 @@
 
 ```
 
-Examples of usage are located in the Tests or Web folders.
+Examples of usage are located in the Tests and Web folders.
 
 ## License    
 Copyright (c) – presented by [Oleg Bruev](https://github.com/olegbruev/).  
