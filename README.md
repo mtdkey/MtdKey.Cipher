@@ -1,9 +1,11 @@
 
 # MTD Key Cipher 
+<a href="https://www.nuget.org/packages/MtdKey.Cipher">Nuget Package 1.0.2</a> 
 
 ### The library for exchanging encrypted messages between different applications.
 
-> Allows messages to be exchanged kind of class objects.
+> <p>Allows messages to be exchanged kind of class objects.</p>
+> Creates complex tokens that can be send over HTTP as hyperlinks and make APIs more flexible and secure.
 
 ```cs
 
