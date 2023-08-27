@@ -18,7 +18,7 @@
 
   var secretKey = AesCore.GenerateSecretKey();
 
-  //It is an extension of the System.Security.Cryptography.Aes class
+  //It's an extension of the System.Security.Cryptography.Aes class
   using Aes aes = Aes.Create();
   var tokenEncrypted = aes.EncryptModel(tokenModel, secretKey);
 
