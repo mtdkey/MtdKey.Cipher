@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="container">
+    <center>
+        <h1>MTD Key Cipher Example</h1>
+    </center>
+    <form method="post">
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+            <label>ID</label>
+            <input class="form-control m-3 text-uppercase" asp-for="@Model.TokenModel.Id" />
+            <label>Created</label>
+            <input class="form-control m-3" asp-for="@Model.TokenModel.Created" />
+            <label>Text Data</label>
+            <input class="form-control m-3" asp-for="@Model.TokenModel.Data" />
+        </div>
+        <div class="col-md-12 col-lg-6">
+                <label>Encripted Token</label>
+            <textarea class="form-control m-1" rows="4">@Model.EncriptedData</textarea>
+                <label>Decripted Token</label>
+                <textarea class="form-control m-1" rows="4">@Model.DecriptedData</textarea>
+        </div>
+    </div>
+    <div class="p-3">
+             <button class="btn btn-dark w-100">START</button>
+    </div>
+
+    </form>
+</div>
+
