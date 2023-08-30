@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MtdKey.Cipher.Tests", "test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MtdKey.Cipher.WebApp", "web\MtdKey.Cipher.WebApp.csproj", "{ED1DC0F6-9264-4CC0-B954-445331AFDE97}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MtdKey.Cipher.Api", "api\MtdKey.Cipher.Api.csproj", "{26E35AE1-55BC-44D5-88E7-9BE61169B30B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ED1DC0F6-9264-4CC0-B954-445331AFDE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED1DC0F6-9264-4CC0-B954-445331AFDE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED1DC0F6-9264-4CC0-B954-445331AFDE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E35AE1-55BC-44D5-88E7-9BE61169B30B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E35AE1-55BC-44D5-88E7-9BE61169B30B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E35AE1-55BC-44D5-88E7-9BE61169B30B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E35AE1-55BC-44D5-88E7-9BE61169B30B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
