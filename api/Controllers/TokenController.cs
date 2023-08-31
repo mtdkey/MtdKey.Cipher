@@ -30,7 +30,6 @@ namespace MtdKey.Cipher.Api.Controllers
             {
                 jsonData = JsonNode.Parse(data)?.AsObject() ?? new JsonObject();
             }
-
             catch (Exception)
             {
                 jsonType = false;
@@ -46,6 +45,8 @@ namespace MtdKey.Cipher.Api.Controllers
             string token = aesManager.EncryptModel(model);
             return token;
         }
+
+
 
         [HttpGet("get/data/{token}")]
         public string GetModel(string token)

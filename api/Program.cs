@@ -2,7 +2,6 @@ using MtdKey.Cipher;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddAesMangerService(options => {
     options.SecretKey = builder.Configuration["AesOptions:SecretKey"] ?? string.Empty;
     options.KeySize = int.Parse(builder.Configuration["AesOptions:KeySize"] ?? "256");
@@ -23,9 +22,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

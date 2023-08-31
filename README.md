@@ -44,6 +44,15 @@
           this.aesManager = aesManager;
       }
 
+      public IActionResult OnPost()
+      {
+
+        var encryptedData = aesManager.EncryptModel(tokenModel);
+        var decryptedModel = aesManager.DecryptModel(encryptedData);
+            
+        ....
+      }
+
   ....
 
   }
