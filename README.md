@@ -30,7 +30,7 @@
 appsettings.json
 ```json
   "AesOptions": {
-    "SecretKey": "BMn137XPZbJhwdn+YBgmoR6ugWc/NCstya0qbr7mqQQ=",
+    "SecretKey": "[Your secret key]",
     "KeySize": "256"
   },
 ```
