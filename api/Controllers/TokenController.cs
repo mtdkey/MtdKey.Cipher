@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using static System.Net.Mime.MediaTypeNames;
 
 
 namespace MtdKey.Cipher.Api.Controllers
