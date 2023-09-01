@@ -74,7 +74,7 @@ Examples of usage are located in the Tests, Api and Web folders.
 | src           | The library source code.           |
 | api           | Example API application for creating complex secret tokens. |
 | web           | Demo web application for creating unique tokens for each request of the same object. |
-| test          | Tests for this solution.  (xUnit) |
+| tests         | Tests for this solution.  (xUnit) |
 
 ## License    
 Copyright (c) – presented by [Oleg Bruev](https://github.com/olegbruev/).  
