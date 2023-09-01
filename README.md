@@ -27,13 +27,21 @@
 
 > The special AesManager class can be used as a dependent injection in the Asp.Net Web App.
 
+appsettings.json
+```json
+  "AesOptions": {
+    "SecretKey": "BMn137XPZbJhwdn+YBgmoR6ugWc/NCstya0qbr7mqQQ=",
+    "KeySize": "256"
+  },
+```
+Program.cs
 ```cs
   builder.Services.AddAesMangerService(options => {
       options.SecretKey = builder.Configuration["AesOptions:SecretKey"] ?? string.Empty;
       options.KeySize = int.Parse(builder.Configuration["AesOptions:KeySize"] ?? "256");
   });
 ```
-
+Index.cshtml.cs
 ```cs
   public class IndexModel : PageModel
   {
@@ -60,6 +68,13 @@
 ```
 
 Examples of usage are located in the Tests, Api and Web folders.
+
+| Folder        | Description                    |
+| ------------- | -------------------------------|
+| src           | The library source code.           |
+| api           | Example API application for creating complex secret tokens. |
+| web           | Demo web application for creating unique tokens for each request of the same object. |
+| test          | Tests for this solution.  (xUnit) |
 
 ## License    
 Copyright (c) – presented by [Oleg Bruev](https://github.com/olegbruev/).  
