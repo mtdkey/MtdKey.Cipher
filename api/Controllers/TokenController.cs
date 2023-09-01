@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace MtdKey.Cipher.Api.Controllers
@@ -10,6 +13,8 @@ namespace MtdKey.Cipher.Api.Controllers
     public class TokenController : ControllerBase
     {
         private readonly IAesManager aesManager;
+
+        private const string key = "key";
 
         public TokenController(IAesManager aesManager)
         {
@@ -33,7 +38,10 @@ namespace MtdKey.Cipher.Api.Controllers
             catch (Exception)
             {
                 jsonType = false;
-                jsonData = CreateJsonObjectFromText(data);
+                jsonData = new JsonObject
+                    {
+                        { key, data }
+                    };
             }
 
             TokenData model = new()
@@ -46,8 +54,6 @@ namespace MtdKey.Cipher.Api.Controllers
             return token;
         }
 
-
-
         [HttpGet("get/data/{token}")]
         public string GetModel(string token)
         {
@@ -56,25 +62,8 @@ namespace MtdKey.Cipher.Api.Controllers
             if (model.JsonType)
                 return model.JsonData.ToString();
 
-            var jsonText = model.JsonData.First(x => x.Key == "data").Value;
-            return jsonText == null ? string.Empty : jsonText.ToString();
-        }
-
-        private static JsonObject CreateJsonObjectFromText(string text)
-        {
-            var jsonObject = new JsonObject();
-            Dictionary<string, string> dictionary = new()
-                {
-                    { "data", text }
-                };
-            var jsonText = JsonSerializer.Serialize(dictionary);
-            var jsonValue = JsonNode.Parse(jsonText);
-            if (jsonValue != null)
-            {
-                jsonObject = jsonValue.AsObject();
-            }
-
-            return jsonObject;
+            var jsonNode = model.JsonData.First(x => x.Key == key).Value;
+            return jsonNode == null ? string.Empty : jsonNode.ToString();
         }
 
     }
