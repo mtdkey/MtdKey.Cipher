@@ -37,8 +37,8 @@ appsettings.json
 Program.cs
 ```cs
   builder.Services.AddAesMangerService(options => {
-      options.SecretKey = builder.Configuration["AesOptions:SecretKey"] ?? string.Empty;
-      options.KeySize = int.Parse(builder.Configuration["AesOptions:KeySize"] ?? "256");
+        options.SecretKey = builder.Configuration.GetValue<string>("AesOptions:SecretKey");
+        options.KeySize = builder.Configuration.GetValue<int>("AesOptions:KeySize");
   });
 ```
 Index.cshtml.cs
