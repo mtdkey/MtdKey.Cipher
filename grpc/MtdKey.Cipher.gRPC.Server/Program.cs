@@ -1,4 +1,4 @@
-using MtdKey.Cipher.gRPC.Services;
+using MtdKey.Cipher.gRPC.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "MtdKey.Cipher.gRPC";
+option csharp_namespace = "MtdKey.Cipher.gRPC.Client";
 
 package greet;
 

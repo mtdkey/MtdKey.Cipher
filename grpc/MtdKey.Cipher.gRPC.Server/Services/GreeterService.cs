@@ -1,7 +1,7 @@
 using Grpc.Core;
 using MtdKey.Cipher.gRPC;
 
-namespace MtdKey.Cipher.gRPC.Services
+namespace MtdKey.Cipher.gRPC.Server.Services
 {
     public class GreeterService : Greeter.GreeterBase
     {
