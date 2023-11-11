@@ -19,6 +19,15 @@ var reply = await client.SayHelloAsync(
                   new HelloRequest { Name = "GreeterClient" });
 
 Console.WriteLine("Greeting: " + reply.Message);
+
+var client2 = new Cipher.CipherClient(channel);
+
+var token = await client2.EncryptAsync(new TargetData { Message = "Secret message." });
+Console.WriteLine($"Token: {token.Message}");
+
+var data = await client2.DecryptAsync(new TokenData { Message = token.Message });
+Console.WriteLine($"Message: {data.Message}");
+
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
 

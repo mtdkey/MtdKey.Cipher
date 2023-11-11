@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 option csharp_namespace = "MtdKey.Cipher.gRPC.Server";
-
 package greet;
 
 // The greeting service definition.

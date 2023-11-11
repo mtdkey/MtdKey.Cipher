@@ -10,9 +10,11 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
 
 builder.Services.AddAesMangerService(options => {
-    options.SecretKey = builder.Configuration["AesOptions:SecretKey"] ?? string.Empty;
-    options.KeySize = int.Parse(builder.Configuration["AesOptions:KeySize"] ?? "256");
+    options.SecretKey = builder.Configuration.GetValue<string>("AesOptions:SecretKey") ?? string.Empty;
+    options.KeySize = builder.Configuration.GetValue<int>("AesOptions:KeySize");
 });
+
+
 
 var app = builder.Build();
 

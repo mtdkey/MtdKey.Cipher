@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "MtdKey.Cipher.gRPC.Server";
+
+package cipherGRPC;
+
+service Cipher {
+  rpc Encrypt (TargetData) returns (TokenData);
+  rpc Decrypt (TokenData) returns (TargetData);
+}
+
+message TokenData {
+  string message = 1;
+}
+
+message TargetData {
+  string message = 1;
+}

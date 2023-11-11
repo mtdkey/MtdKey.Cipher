@@ -1,3 +1,4 @@
+using MtdKey.Cipher;
 using MtdKey.Cipher.gRPC.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,10 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddGrpc();
 
+builder.Services.AddAesMangerService(options => {
+    options.SecretKey = builder.Configuration.GetValue<string>("AesOptions:SecretKey") ?? string.Empty;
+    options.KeySize = builder.Configuration.GetValue<int>("AesOptions:KeySize");
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
+app.MapGrpcService<CipherService>();
+
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();

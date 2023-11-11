@@ -1,5 +1,4 @@
 using Grpc.Core;
-using MtdKey.Cipher.gRPC;
 
 namespace MtdKey.Cipher.gRPC.Server.Services
 {
