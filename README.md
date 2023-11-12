@@ -72,7 +72,8 @@ Examples of usage are located in the Tests, Api and Web folders.
 | Folder        | Description                    |
 | ------------- | -------------------------------|
 | src           | The library source code.           |
-| api           | Example API application for creating complex secret tokens. |
+| grps          | An example gRPC server that encrypts and decrypts text messages can be used as a microservice - one secret key for multiple clients. |
+| api           | An example API application for creating complex secret tokens. |
 | web           | Demo web application for creating unique tokens for each request of the same object. |
 | tests         | Tests for this solution.  (xUnit) |
 
