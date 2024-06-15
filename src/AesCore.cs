@@ -9,13 +9,44 @@ namespace MtdKey.Cipher
         public static string GenerateSecretKey(int keySize = 256)
         {
             using Aes aes = Aes.Create();
-            aes.KeySize = keySize;           
+            aes.KeySize = keySize;
             aes.GenerateKey();
             return Convert.ToBase64String(aes.Key);
         }
 
+        public static string GenerateIV()
+        {
+            using Aes aes = Aes.Create();
+            aes.GenerateIV();
+            return Convert.ToBase64String(aes.IV);
+        }
+
+        public static string EncryptModel<TModel>(this Aes aes, TModel model, byte[] iv, string key, int keySize = 256) where TModel : class
+        {
+            var plainText = JsonSerializer.Serialize(model);
+            byte[] array;
+
+            aes.KeySize = keySize;
+            aes.Key = Convert.FromBase64String(key);
+            aes.IV = iv;
+
+            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+            using MemoryStream memoryStream = new();
+            using CryptoStream cryptoStream = new(memoryStream, encryptor, CryptoStreamMode.Write);
+            using (StreamWriter streamWriter = new(cryptoStream))
+            {
+                streamWriter.Write(plainText);
+            }
+
+            array = memoryStream.ToArray();
+
+            var result = $"{Convert.ToBase64String(aes.IV)}/{Convert.ToBase64String(array)}";
+            return Base64UrlEncoder.Encode(result);
+        }
+
         public static string EncryptModel<TModel>(this Aes aes, TModel model, string key, int keySize = 256) where TModel : class
-        {            
+        {
             var plainText = JsonSerializer.Serialize(model);
             byte[] array;
 
@@ -43,16 +74,12 @@ namespace MtdKey.Cipher
         {
             TModel result;
 
-            token = Base64UrlEncoder.Decode(token);
-            int pos = token.IndexOf("=/");
-            if (pos == -1) { throw new Exception("Wrong token!"); }
-            var iv = token[..(pos + 1)];
-            var cipherText = token[(pos + 2)..];
+            var tokenSchema = SplitToken(token);
 
-            byte[] buffer = Convert.FromBase64String(cipherText);
+            byte[] buffer = Convert.FromBase64String(tokenSchema.Data);
             aes.KeySize = keySize;
             aes.Key = Convert.FromBase64String(key);
-            aes.IV = Convert.FromBase64String(iv);
+            aes.IV = Convert.FromBase64String(tokenSchema.IV);
 
             ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
@@ -64,6 +91,18 @@ namespace MtdKey.Cipher
             result = JsonSerializer.Deserialize<TModel>(jsonText) ?? new();
 
             return result;
+        }
+
+
+        public static TokenSchema SplitToken(string token)
+        {
+            token = Base64UrlEncoder.Decode(token);
+            int pos = token.IndexOf("=/");
+            if (pos == -1) { throw new Exception("Wrong token!"); }
+            var iv = token[..(pos + 1)];
+            var cipherText = token[(pos + 2)..];
+
+            return new TokenSchema { IV = iv, Data = cipherText };
         }
 
     }

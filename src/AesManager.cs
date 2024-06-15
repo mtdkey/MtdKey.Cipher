@@ -6,7 +6,7 @@
     public class AesManager : IAesManager
     {
         private readonly AesOptions aesOptions;
-
+        
         /// <summary>
         /// The constructor is implemented for use with dependency injection.
         /// <see cref="ServiceExtensions.AddAesMangerService(Microsoft.Extensions.DependencyInjection.IServiceCollection, Action{AesOptions})"/>
@@ -27,6 +27,7 @@
 
         public string EncryptModel<TModel>(TModel model) where TModel : class 
         {
+            if(model == null) return string.Empty;
             using Aes aes = Aes.Create();
             var token = aes.EncryptModel(model, aesOptions.SecretKey, aesOptions.KeySize);
             return token;
