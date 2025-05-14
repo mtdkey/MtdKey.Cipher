@@ -1,6 +1,6 @@
-
+﻿
 # MTD Key Cipher 
-<a href="https://www.nuget.org/packages/MtdKey.Cipher">Nuget Package 1.1.1</a> 
+<a href="https://www.nuget.org/packages/MtdKey.Cipher">Nuget Package 2.0.0</a> 
 
 ### The library for exchanging encrypted messages between different applications.
 
