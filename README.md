@@ -2,29 +2,25 @@
 # MTD Key Cipher 
 <a href="https://www.nuget.org/packages/MtdKey.Cipher">Nuget Package 2.0.0</a> 
 
-### The library for exchanging encrypted messages between different applications.
+# MTD Key Cipher 
+<a href="https://www.nuget.org/packages/MtdKey.Cipher">Nuget Package 2.0.0</a> 
+# 🔐 Secure Encrypted Message Exchange Library
 
-> <p>Allows messages to be exchanged kind of class objects.</p>
-> Creates complex tokens that can be send over HTTP as hyperlinks and make APIs more flexible and secure.
+## Overview
+This library provides a **robust solution** for exchanging encrypted messages between applications that share a predefined object structure. It is ideal for **microservices**, **remote backend servers**, **APIs**, and other distributed systems where structured data integrity is crucial.
 
-```cs
+By ensuring that both sender and receiver applications recognize the **data format**, this solution enables seamless integration, **secure token validation**, and **efficient object conversion**, reducing complexity in multi-application environments.
 
-  var tokenModel = new TestTokenModel()
-  {
-      UserName = "John Doe",
-      Password = "password",
-      Items = new() { "first", "second" }
-  };
+## 🔹 Key Features
+- **IV Embedded in Encrypted Data** → Unlike conventional methods that send the **Initialization Vector (IV)** separately, this approach embeds the IV **within** the encrypted message, streamlining transmission and processing.
+- **Object Conversion & Token Lifetime Validation** → Converts structured objects into encrypted tokens while automatically validating expiration, ensuring tokens remain usable **only within a predefined timeframe**.
+- **Supports Primitive Types & Arrays** → While **nested objects** are **not supported**, the system securely handles **primitive types** (`string`, `int`, `bool`, etc.) and arrays/lists for structured data exchange.
 
-  var secretKey = AesCore.GenerateSecretKey();
-
-  //It's an extension of the System.Security.Cryptography.Aes class
-  using Aes aes = Aes.Create();
-  var tokenEncrypted = aes.EncryptModel(tokenModel, secretKey);
-
-  var tokenDecrypted = aes.DecryptModel<TestTokenModel>(tokenEncrypted, secretKey);
-```
-
+## 🛠 Installation
+Clone the repository and ensure you have **.NET 9 ** installed:
+```bash
+git clone https://github.com/your-username/your-repository.git
+cd your-repository
 > The special AesManager class can be used as a dependent injection in the Asp.Net Web App.
 
 appsettings.json
@@ -52,18 +48,52 @@ Index.cshtml.cs
           this.aesManager = aesManager;
       }
 
-      public IActionResult OnPost()
+      public IActionResult OnGet()
       {
+            var tokenModel = new TestTokenModel()
+            {
+                UserName = "John Doe",
+                Password = "securekey",
+                Items = ["first", "second"]
+            }; 
 
-        var encryptedData = aesManager.EncryptModel(tokenModel);
-        var decryptedModel = aesManager.DecryptModel(encryptedData);
-            
+            var encryptedData = aesManager.EncryptStrongToken(tokenModel, TimeSpan.FromSeconds(60));
+            if (ValidateStrongToken(encryptedData))
+            {
+                var decryptedModel = DecryptStrongToken.DecryptModel(encryptedData);
+            }}      
         ....
       }
 
   ....
 
   }
+
+```
+
+> You can also use extensions for the Aes library
+
+```cs
+
+var tokenModel = new TestTokenModel()
+{
+    UserName = "John Doe",
+    Password = "password",
+    Items = new List<string> { "first", "second" } // Explicitly defining the type for clarity
+};
+
+var secretKey = AesCore.GenerateSecretKey();
+
+
+using Aes aes = Aes.Create();
+
+// It's an extension of the System.Security.Cryptography.Aes class
+var tokenEncrypted = aes.EncryptStrongToken(tokenModel, secretKey, TimeSpan.FromSeconds(60));
+var tokenDecrypted = aes.DecryptStrongToken<TestTokenModel>(tokenEncrypted, secretKey);
+
+Console.WriteLine($"Decrypted User: {tokenDecrypted.UserName}");
+Console.WriteLine($"Decrypted Password: {tokenDecrypted.Password}");
+Console.WriteLine($"Decrypted Items: {string.Join(", ", tokenDecrypted.Items)}");
 
 ```
 

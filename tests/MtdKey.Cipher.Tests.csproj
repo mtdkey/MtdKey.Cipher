@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\api\MtdKey.Cipher.Api.csproj" />
+    <ProjectReference Include="..\src\MtdKey.Cipher.csproj" />
   </ItemGroup>
 
 </Project>
