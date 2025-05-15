@@ -19,7 +19,7 @@ By ensuring that both sender and receiver applications recognize the **data form
 ## 🛠 Installation
 Clone the repository and ensure you have **.NET 9 ** installed:
 ```bash
-git clone https://github.com/your-username/your-repository.git
+git clone https://github.com/mtdkey/MtdKey.Cipher.git
 cd your-repository
 > The special AesManager class can be used as a dependent injection in the Asp.Net Web App.
 
