@@ -1,9 +1,5 @@
-﻿
-# MTD Key Cipher 
-<a href="https://www.nuget.org/packages/MtdKey.Cipher">Nuget Package 2.0.0</a> 
-
-# MTD Key Cipher 
-<a href="https://www.nuget.org/packages/MtdKey.Cipher">Nuget Package 2.0.0</a> 
+﻿# MTD Key Cipher 
+<a href="https://www.nuget.org/packages/MtdKey.Cipher">Nuget Package 2.0.1</a> 
 # 🔐 Secure Encrypted Message Exchange Library
 
 ## Overview
@@ -21,6 +17,8 @@ Clone the repository and ensure you have **.NET 9 ** installed:
 ```bash
 git clone https://github.com/mtdkey/MtdKey.Cipher.git
 cd your-repository
+```
+
 > The special AesManager class can be used as a dependent injection in the Asp.Net Web App.
 
 appsettings.json
@@ -79,7 +77,7 @@ var tokenModel = new TestTokenModel()
 {
     UserName = "John Doe",
     Password = "password",
-    Items = new List<string> { "first", "second" } // Explicitly defining the type for clarity
+    Items = [ "first", "second" ] 
 };
 
 var secretKey = AesCore.GenerateSecretKey();
