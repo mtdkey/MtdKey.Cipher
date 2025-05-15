@@ -105,6 +105,15 @@ Examples of usage are located in the Tests, Api and Web folders.
 | web           | Demo web application for creating unique tokens for each request of the same object. |
 | tests         | Tests for this solution.  (xUnit) |
 
+## ✅ Limitations
+- Supports only **primitive types** (`string`, `int`, `bool`, etc.).
+- **Nested classes are not supported**.
+- Allows **arrays and lists** for structured data handling.
+
+## 🏗 Contributing
+Feel free to **fork**, create **issues**, and submit **pull requests**! 🚀  
+We welcome improvements, feature additions, and optimizations to enhance the library.
+
 ## License    
 Copyright (c) – presented by [Oleg Bruev](https://github.com/olegbruev/).  
 MTDKey Cipher is free and open-source software licensed under the MIT License.
