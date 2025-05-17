@@ -70,6 +70,9 @@ namespace MtdKey.Cipher.Tests
             Assert.True(tokenModel?.UserName.Equals(decryptedData.UserName));
             Assert.True(tokenModel?.Password.Equals(decryptedData.Password));
             Assert.True(tokenModel?.Items[0].Equals(decryptedData.Items[0]));
+            Assert.True(tokenModel?.Guid.Equals(decryptedData.Guid));
+            Assert.True(tokenModel?.IsValid.Equals(decryptedData.IsValid));
+            Assert.True(tokenModel?.Expiration.Equals(decryptedData.Expiration));
         }
 
         [Fact]

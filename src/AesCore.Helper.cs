@@ -33,42 +33,83 @@ namespace MtdKey.Cipher
                 {
                     if (kvp.Value is JsonElement jsonElement)
                     {
-                        if (jsonElement.ValueKind == JsonValueKind.Array)
-                        {
-                            // Convert JSON array to a list of strings
-                            var list = jsonElement.EnumerateArray().Select(e => e.GetString()).ToList();
-
-                            // If the target type is an array, convert the list to an array
-                            if (property.PropertyType.IsArray)
-                            {
-                                Type elementType = property.PropertyType.GetElementType()!;
-                                Array array = Array.CreateInstance(elementType, list.Count);
-                                for (int i = 0; i < list.Count; i++)
-                                {
-                                    array.SetValue(Convert.ChangeType(list[i], elementType), i);
-                                }
-                                property.SetValue(model, array);
-                            }
-                            else
-                            {
-                                property.SetValue(model, list);
-                            }
-                        }
-                        else
-                        {
-                            string? jsonString = jsonElement.ValueKind == JsonValueKind.String ? jsonElement.GetString() : jsonElement.ToString();
-                            Type targetType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
-                            object? safeValue = jsonString == null ? null : Convert.ChangeType(jsonString, targetType);
-                            property.SetValue(model, safeValue);
-                        }
+                        property.SetValue(model, ConvertJsonElement(jsonElement, property.PropertyType));
                     }
-
-
                 }
             }
 
             return model;
         }
+
+        private static object? ConvertJsonElement(JsonElement jsonElement, Type propertyType)
+        {
+            if (jsonElement.ValueKind == JsonValueKind.Array)
+            {
+                return ConvertJsonArray(jsonElement, propertyType);
+            }
+
+            string? jsonString = jsonElement.ValueKind == JsonValueKind.String ? jsonElement.GetString() : jsonElement.ToString();
+            Type targetType = Nullable.GetUnderlyingType(propertyType) ?? propertyType;
+
+            return ConvertJsonValue(jsonString, targetType);
+        }
+
+        private static object? ConvertJsonArray(JsonElement jsonElement, Type propertyType)
+        {
+            var list = jsonElement.EnumerateArray().Select(e => e.GetString()).ToList();
+
+            if (propertyType.IsArray)
+            {
+                Type elementType = propertyType.GetElementType()!;
+                Array array = Array.CreateInstance(elementType, list.Count);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    array.SetValue(Convert.ChangeType(list[i], elementType), i);
+                }
+                return array;
+            }
+
+            return list;
+        }
+
+        private static object? ConvertJsonValue(string? jsonString, Type targetType)
+        {
+            if (jsonString == null) return null;
+
+            if (targetType == typeof(Guid))
+            {
+                return Guid.Parse(jsonString);
+            }
+            if (targetType == typeof(DateTime))
+            {
+                return DateTime.Parse(jsonString, null, System.Globalization.DateTimeStyles.AdjustToUniversal);
+            }
+            if (targetType == typeof(bool))
+            {
+                return bool.Parse(jsonString);
+            }
+            if (targetType == typeof(int))
+            {
+                return int.Parse(jsonString);
+            }
+            if (targetType == typeof(long))
+            {
+                return long.Parse(jsonString);
+            }
+            if (targetType == typeof(decimal))
+            {
+                return decimal.Parse(jsonString);
+            }
+            if (targetType == typeof(float))
+            {
+                return float.Parse(jsonString);
+            }
+            return Convert.ChangeType(jsonString, targetType);
+        }
+
+
+
+
 
         private static string DecryptTokenToJson(Aes aes, string token, string key, int keySize = 256)
         {
