@@ -109,6 +109,7 @@ Examples of usage are located in the Tests, Api and Web folders.
 
 ## ✅ Limitations
 - Supports only **primitive types** (`string`, `int`, `bool`, etc.).
+- Warning! DateTime will be parsed in UTC format. Ensure DateTime is in UTC before encrypting.
 - **Nested classes are not supported**.
 - Allows **arrays and lists** for structured data handling.
 
