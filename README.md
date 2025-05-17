@@ -9,7 +9,9 @@ By ensuring that both sender and receiver applications recognize the **data form
 
 ## 🔹 Key Features
 - **IV Embedded in Encrypted Data** → Unlike conventional methods that send the **Initialization Vector (IV)** separately, this approach embeds the IV **within** the encrypted message, streamlining transmission and processing.
-- **Object Conversion & Token Lifetime Validation** → Converts structured objects into encrypted tokens while automatically validating expiration, ensuring tokens remain usable **only within a predefined timeframe**.
+  
+- **Object Conversion & Token Lifetime Validation** → Converts structured objects into encrypted tokens while embedding an expiration marker, ensuring tokens remain valid only when properly validated within a predefined timeframe.
+  
 - **Supports Primitive Types & Arrays** → While **nested objects** are **not supported**, the system securely handles **primitive types** (`string`, `int`, `bool`, etc.) and arrays/lists for structured data exchange.
 
 > The special AesManager class can be used as a dependent injection in the Asp.Net Web App.
