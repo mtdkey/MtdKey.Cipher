@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Security.Cryptography;
+using System.Text;
 using Xunit.Abstractions;
 
 namespace MtdKey.Cipher.Tests
@@ -123,6 +126,50 @@ namespace MtdKey.Cipher.Tests
 
             // Assert
             Assert.False(isValid);
+        }
+
+
+
+        [Fact]
+        public void EncryptDecryptPerformanceTest()
+        {
+            var items = new List<string>(Enumerable.Range(1, 100000).Select(i => $"Item-{i}")); // Large dataset
+            string jsonData = JsonConvert.SerializeObject(items);
+            byte[] jsonBytes = Encoding.UTF8.GetBytes(jsonData);
+
+            outputHelper.WriteLine($"JSON Size: {jsonBytes.Length} bytes");
+
+            // Arrange: Generate large JSON data
+            var largeData = new TestTokenModel()
+            {
+                UserName = "John Doe",
+                Password = "password",
+                Items = items
+            };
+
+            TimeSpan timeSpan = TimeSpan.FromHours(1);
+            var secretKey = AesCore.GenerateSecretKey();
+            using Aes aes = Aes.Create();
+
+            // Measure encryption speed
+            Stopwatch encryptWatch = Stopwatch.StartNew();
+            var encryptedString = aes.EncryptStrongToken(largeData, secretKey, timeSpan, 128);
+            encryptWatch.Stop();
+
+            outputHelper.WriteLine($"Encryption Time: {encryptWatch.ElapsedMilliseconds} ms");
+
+            // Measure decryption speed
+            Stopwatch decryptWatch = Stopwatch.StartNew();
+            var decryptedData = aes.DecryptStrongToken<TestTokenModel>(encryptedString, secretKey, 128);
+            decryptWatch.Stop();
+
+            outputHelper.WriteLine($"Decryption Time: {decryptWatch.ElapsedMilliseconds} ms");
+
+            // Assertions
+            Assert.NotNull(encryptedString);
+            Assert.NotEmpty(encryptedString);
+            Assert.NotNull(decryptedData);
+            Assert.True(decryptedData.Items.Count == largeData.Items.Count);
         }
 
     }
